@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
-    //id 'kotlin-kapt'
+    id 'kotlin-kapt'
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
 }
@@ -31,7 +31,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
     buildFeatures{
         viewBinding true
     }
@@ -53,9 +55,8 @@ dependencies {
 
 
     implementation("androidx.room:room-runtime:2.5.2")
-   // kapt "androidx.room:room-compiler:2.5.2"
+    kapt "androidx.room:room-compiler:2.5.2"
     implementation("androidx.room:room-ktx:2.5.2")
-    annotationProcessor("androidx.room:room-compiler:2.5.2")
 
 
     //coroutine
@@ -68,8 +69,8 @@ dependencies {
     //kapt("androidx.lifecycle:lifecycle-compiler:2.6.1")
 
     // Navigation Components
-    implementation "androidx.navigation:navigation-fragment-ktx:2.7.2"
-    implementation "androidx.navigation:navigation-ui-ktx:2.7.2"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.7.3"
+    implementation "androidx.navigation:navigation-ui-ktx:2.7.3"
 
 
 }

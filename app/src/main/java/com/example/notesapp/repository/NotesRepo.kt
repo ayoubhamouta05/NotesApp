@@ -9,9 +9,9 @@ class NoteRepo(
 ) {
     private val noteDao = noteDatabase.noteDao
 
-    suspend fun upsertNote(note : Note)= noteDao.upsertNote(note)
+     fun upsertNote(note : Note)= noteDao.upsertNote(note)
 
-    suspend fun deleteNote(note: Note) = noteDao.deleteNote(note)
+     fun deleteNote(note: Note) = noteDao.deleteNote(note)
 
     fun getNotes()= noteDao.selectNotes()
 

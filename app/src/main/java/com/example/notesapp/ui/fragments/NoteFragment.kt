@@ -8,12 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.notesapp.R
 import com.example.notesapp.databinding.FragmentNoteBinding
 import com.example.notesapp.viewModel.NoteViewModel
 import com.example.notesapp.ui.activities.MainActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class NoteFragment : Fragment(R.layout.fragment_note) {
@@ -60,8 +64,10 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
                             .show()
                         return@setOnClickListener
                     }
+
                     viewModel.upsertNote(it)
                     findNavController().navigateUp()
+
                 }
             }
         }
@@ -73,8 +79,12 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
                 val noteText = edNote.text.toString()
 
                 com.example.notesapp.data.Note(noteId, noteTitle, noteText).also{
+
                     viewModel.deleteNote(it)
                     findNavController().navigateUp()
+
+
+
                 }
             }
         }

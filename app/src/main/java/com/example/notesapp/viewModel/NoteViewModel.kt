@@ -7,6 +7,7 @@ import com.example.notesapp.repository.NoteRepo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.util.concurrent.Executors
 
 
 class NoteViewModel(
@@ -14,15 +15,28 @@ class NoteViewModel(
 ) : ViewModel() {
     val notes = noteRepo.getNotes()
     private val _searchNote = MutableStateFlow<List<Note>>(emptyList())
+    private val executor = Executors.newSingleThreadExecutor()
 
     val searchNotes : StateFlow<List<Note>> = _searchNote
 
-    fun upsertNote(note :Note) = viewModelScope.launch {
+//    fun upsertNote(note :Note) = viewModelScope.launch {
+//        noteRepo.upsertNote(note)
+//    }
+//    fun deleteNote(note:Note) = viewModelScope.launch {
+//        noteRepo.deleteNote(note)
+//    }
+    fun upsertNote(note: Note) {
+    executor.execute {
         noteRepo.upsertNote(note)
     }
-    fun deleteNote(note:Note) = viewModelScope.launch {
-        noteRepo.deleteNote(note)
+}
+
+    fun deleteNote(note: Note) {
+        executor.execute {
+            noteRepo.deleteNote(note)
+        }
     }
+
 
     fun searchNotes (searchQuery : String) = viewModelScope.launch {
         noteRepo.searchNotes(searchQuery).collect{

@@ -12,11 +12,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface NoteDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsertNote(note: Note)
+    @Upsert(entity = Note::class)
+     fun upsertNote(note: Note)
 
-    @Delete
-    suspend fun deleteNote(note:Note)
+    @Delete(entity = Note::class)
+     fun deleteNote(note:Note)
 
     @Query("Select * from note where noteTitle like :searchQuery || '%' ")
     fun searchInNoteTilte(searchQuery: String) : Flow<List<Note>>
